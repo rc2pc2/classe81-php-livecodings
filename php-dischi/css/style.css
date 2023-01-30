@@ -1,0 +1,32 @@
+body{
+    color: white;
+}
+
+header{
+    height: 70px;
+    background-color: #06131f;
+}
+
+section.logo img{
+    height: 70px;
+}
+
+main{
+    min-height: calc(100vh - 70px);
+    background-color: #1d2d3c;
+
+}
+
+.disc-element{
+    background-color: #112030;
+    text-align: center;
+}
+
+.disc-element h4{
+    font-weight: bolder;
+    font-size: .9rem;
+}
+
+.disc-element h6{
+    font-size: .7rem;
+}
