@@ -1,0 +1,20 @@
+Nome tabella: libri
+
+    id -                    intero      - MEDIUMINT         -   PRIMARY_KEY AUTO_INCREMENT
+    isbn -                  stringa     - VARCHAR(13)       -   UNIQUE - NOTNULL
+    titolo -                stringa     - VARCHAR(210)      -   NOTNULL
+    autore -                stringa     - VARCHAR(255)      -   NULL    -   DEFAULT('Anonimo')
+    genere -                stringa     - VARCHAR(25)       -   NULL
+    trama -                 stringa     - TEXT              -   NULL
+    lingua -                stringa     - VARCHAR(3)        -   NOTNULL
+    scaffale -              stringa     - VARCHAR(12)       -   NULL
+    anno_pubblicazione -    date        - YEAR              -   NOTNULL
+    casa_editrice -         stringa     - VARCHAR(50)       -   NOTNULL
+    numero_copie            intero      - SMALLINT          -   NOTNULL
+    numero_pagine           intero      - SMALLINT          -   NOTNULL
+    edizione                intero      - TINYINT -         -   NOTNULL     DEFAULT(1)
+    prezzo_vendita          float       - FLOAT(6,2)        -   NOTNULL
+    fornitori               stringa     - VARCHAR(255)      -   NULL
+
+
+MODELLIZZARE
