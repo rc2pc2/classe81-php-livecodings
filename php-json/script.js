@@ -30,7 +30,7 @@ createApp({
                 console.log(response.data);
                 this.newTodoItem = '';
                 this.itemsList = response.data;
-            })
+            } )
         }
     },
 

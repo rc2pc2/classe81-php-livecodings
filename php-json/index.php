@@ -35,11 +35,10 @@
                     </h2>
 
                     <ul class="list-group border">
-                        <li v-for="(item, index) in itemsList" :key="index"                         class="list-group-item">
+                        <li v-for="(item, index) in itemsList" :key="index"   class="list-group-item">
                             {{ item.name }}
                         </li>
                     </ul>
-
                 </div>
 
                 <div class="col-12 mt-5">
