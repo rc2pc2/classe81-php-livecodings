@@ -20,9 +20,11 @@
         <pre>
             <?php
 
+                // phpinfo();
                 // $gino = new Player('Gino', 22, new SkillSet(10, 4, 3));
                 $gina = new Player('Ginetta', 26, new SkillSet(30,25, 28));
 
+                
                 Player::$version = 'CIAONE';
                 var_dump($gina->getName());
 
