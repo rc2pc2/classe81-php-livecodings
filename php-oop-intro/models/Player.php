@@ -2,15 +2,15 @@
 
 class Player{
     // ? caratteristiche tipiche => campi, fields, attributes
-    public $name;
-    public $age;
-    public $skillsList;
-    public $isAlive;
-    public static $version = 'Multiplayer';
+    protected $name;
+    protected $age;
+    protected $skillsList;
+    protected $isAlive;
+    protected static $version = 'Multiplayer';
 
     public function __construct($_name, $_age, SkillSet $_skillsList)
     {
-        $this->name = $_name;
+        $this->setName($_name);
         $this->age = $_age;
         $this->skillsList = $_skillsList;
         $this->isAlive = true;
@@ -22,6 +22,14 @@ class Player{
         // ritorno il nome del giocatore
         return $this->name;
     }
+
+    private function setName($_name){
+        if ($_name === ''){
+        } else {
+            $this->name = $_name;
+        }
+    }
+
 
     public function getVersion(){
         return self::$version;
