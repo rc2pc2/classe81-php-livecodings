@@ -20,11 +20,13 @@
 
     <?php
         $productA = new Product('Motosega', 'Motosega GG7400 da 400cv', new Category('Attrezzi da lavoro', 'nd'), true, 199.90);
-        $food = new Food('Croccantini al pollo', 'Croccantini al pollo specialissimi di Nonna Pina', new Category('Gatti', 'nd'), true, 3.99, 170);
+        $food = new Food('Croccantini al pollo', 'Croccantini al pollo specialissimi di Nonna Pina', new Category('Gatti', 'nd'), true, 3.99, 170, 'Magazzino di Orte', 'Corsia A', 'Scaffale 17');
         $toy = new Toy('Osso di gomma', 'Osso di gomma che farà impazzire fido e cerbero', new Category('Cani', 'nd'), true, 12.99, 'Masticabili');
         $kennel = new Kennel('Cuccia media da esterno', 'Cuccia rivestita in lana di vetro per coccolare adeguatamente il vosto amatissimo fido', new Category('Cani', 'nd'), true, 89.99, 150);
 
         $cart = new ShoppingCart($productA, $food, $toy, $kennel);
+
+        var_dump($food);
 
     ?>
 </head>
