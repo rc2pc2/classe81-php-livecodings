@@ -25,7 +25,7 @@
                     <h2>Main</h2>
                 </div>
                 @forelse ($books as $book)
-                <div class="col-4 p-4">
+                    <div class="col-4 p-4">
                         <h5>
                             {{ $book->title }}
                         </h5>

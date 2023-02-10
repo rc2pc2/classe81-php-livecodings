@@ -28,7 +28,6 @@ class PageController extends Controller
         // $book->save();
         $books = Book::all();
 
-
         return view('home', compact('books'));
     }
 }
