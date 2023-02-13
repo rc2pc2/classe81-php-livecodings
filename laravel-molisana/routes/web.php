@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController as ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,12 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function(){
     return view('home');
 })->name('home');
 
-Route::get('/products', function () {
-    $pastas = config('db.pasta');
-    // dd($pasta);
-    return view('products', [ 'pastas' => $pastas ] ); //compact("pastas")
-})->name('products');
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+
+// Route::resource('products', ProductController::class);

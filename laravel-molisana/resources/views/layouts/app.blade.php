@@ -14,7 +14,7 @@
 <body>
     {{-- se voglio ci metto un header --}}
     @include('partials.header')
-    <main class="bg-dark text-light">
+    <main>
         @yield('main-content')
     </main>
     {{-- se voglio ci metto un footer --}}
