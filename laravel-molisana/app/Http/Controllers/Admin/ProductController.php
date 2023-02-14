@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
+   /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -15,7 +16,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        return view('products.index', compact('products'));
+        return view('admin.products.index', compact('products'));
     }
 
     /**
@@ -25,7 +26,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.products.create');
     }
 
     /**
@@ -36,7 +37,28 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        // ? In nome del buon Marco: a manina!
+        // $newProduct = new Product();
+        // $newProduct->title = $data['title'];
+        // $newProduct->type = $data['type'];
+        // $newProduct->cooking_time = $data['cooking_time'];
+        // $newProduct->weight = $data['weight'];
+        // $newProduct->description = $data['description'];
+        // $newProduct->image_specific = $data['image_specific'];
+        // $newProduct->image_package = $data['image_package'];
+        // $newProduct->image_raw = $data['image_raw'];
+        // $newProduct->save();
+
+
+        // § Usando i campi fillable
+        $newProduct = new Product();
+        $newProduct->fill($data);
+        $newProduct->save();
+
+
+        return redirect()->route('admin.products.show', $newProduct->id);
     }
 
     /**
@@ -48,10 +70,8 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::findOrFail($id);
-        // dd($product);
-        return view('products.show', compact('product'));
+        return view('admin.products.show', compact('product'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *

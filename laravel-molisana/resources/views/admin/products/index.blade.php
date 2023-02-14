@@ -9,8 +9,9 @@
                 @dump(Route::currentRouteName())
 
                 <div class="col-12 d-flex ">
-                    <button class="ms-auto me-5 btn btn-sm btn-primary">
-                        Create new product</button>
+                    <a class="ms-auto me-5 btn btn-sm btn-primary" href="{{ route('admin.products.create') }}">
+                        Create new product
+                    </a>
                 </div>
 
 
@@ -33,7 +34,7 @@
                             <td> {{ $product->cooking_time }}</td>
                             <td>
                                 <a class="btn btn-sm btn-primary"
-                                href="{{ route('products.show', $product->id) }}">
+                                href="{{ route('admin.products.show', $product->id) }}">
                                     Show
                                 </a>
                                 <button class="btn btn-sm btn-warning"> Edit </button>

@@ -1,13 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.guest')
 
 @section('main-content')
     <div class="container">
         <div class="row">
             <div class="col-12">
+                @dump(Route::currentRouteName())
                 <h2>
-                    Benvenuti nella nuova homepage
+                    Benvenuti nella nuova homepage per i visitatori e le visitatrici!
                 </h2>
-                <p class="item">
+                <p class="">
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorum quas eaque ipsum, quis ut at, suscipit laboriosam modi labore nam doloremque dolores consequuntur perspiciatis eveniet officia reiciendis! Tempora, et saepe?
                     In soluta libero voluptas atque vel incidunt odit ipsa recusandae laborum vitae delectus eaque officia ullam eos magnam culpa repellendus beatae, nihil fuga perferendis! Voluptatum dolorum eos sapiente esse eius!
                     Inventore optio pariatur, dolore adipisci voluptatum iure rem porro provident laudantium tempore maiores. Voluptate possimus reprehenderit corporis porro laborum eum consectetur amet explicabo et. Earum distinctio quis nesciunt explicabo quasi?

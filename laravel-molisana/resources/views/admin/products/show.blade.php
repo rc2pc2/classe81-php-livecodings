@@ -27,6 +27,11 @@
                                 {{ $product->description }}
                             </p>
                         </div>
+                        <div class="p-4">
+                            <button class="btn btn-lg btn-warning"> Edit </button>
+                            <button class="btn btn-lg btn-danger"> Delete </button>
+                        </div>
+
                     </div>
                 </div>
             </div>
