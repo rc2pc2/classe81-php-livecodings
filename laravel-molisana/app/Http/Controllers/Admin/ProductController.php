@@ -26,8 +26,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create');
+        return view('admin.products.create'); //
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -38,6 +39,8 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+
+        // dd($data);
 
         // ? In nome del buon Marco: a manina!
         // $newProduct = new Product();
@@ -75,12 +78,12 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        //
+        return view('admin.products.edit', [ 'product' => $product ]); //
     }
 
     /**
@@ -92,7 +95,23 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $product = Product::findOrFail($id); // il vecchio dato
+
+        // $product->title = $data['title'];
+        // $product->type = $data['type'];
+        // $product->cooking_time = $data['cooking_time'];
+        // $product->weight = $data['weight'];
+        // $product->description = $data['description'];
+        // $product->image_specific = $data['image_specific'];
+        // $product->image_package = $data['image_package'];
+        // $product->image_raw = $data['image_raw'];
+        // $product->save();
+
+        $product->update($data);
+
+        return redirect()->route('admin.products.show', $product->id);
+
     }
 
     /**
