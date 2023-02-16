@@ -10,7 +10,8 @@
                 <div class="col-12">
                     @include('admin.products.partials.form',
                     ['route'=> 'admin.products.store',
-                    'method' => 'POST'])
+                    'method' => 'POST',
+                    "product" => $product ])
                 </div>
             </div>
         </div>

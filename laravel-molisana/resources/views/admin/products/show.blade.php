@@ -6,7 +6,13 @@
     <div class="products">
         <div class="container">
             <div class="row justify-content-around">
-                @dump(Route::currentRouteName())
+
+                @if (session('message'))
+                    <div class="alert alert-{{ session('alert-type') }}">
+                        {{ session('message')  }}
+                    </div>
+                @endif
+
                 <div class="col-12">
                     <div class="card p-5 text-center">
                         <div class="card-title">
@@ -28,8 +34,15 @@
                             </p>
                         </div>
                         <div class="p-4">
-                            <button class="btn btn-lg btn-warning"> Edit </button>
-                            <button class="btn btn-lg btn-danger"> Delete </button>
+                            <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-lg btn-warning"> Edit </a>
+                            <form class="d-inline-block form-deleter" action="{{ route('admin.products.destroy', $product->id) }}" method="POST" data-element-name="{{ $product->title }}">
+                                @csrf
+                                @method('DELETE')
+
+                                <button class="btn btn-lg btn-danger">
+                                    Delete
+                                </button>
+                            </form>
                         </div>
 
                     </div>
@@ -37,4 +50,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    @vite('resources/js/deleteHandler.js')
 @endsection

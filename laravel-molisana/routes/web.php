@@ -15,14 +15,19 @@ use App\Http\Controllers\Guest\PageController as GuestPageController;
 |
 */
 
-Route::get('/', [GuestPageController::class, 'home'])->name('guest.home');
+// Route::get('/', [GuestPageController::class, 'home'])->name('guest.home');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('home', [AdminHomeController::class, 'home'])->name('home');
-    // Route::get('/', [ProductController::class, 'index'])->name('index');
-    // Route::get('/create', [ProductController::class, 'create'])->name('create');
-    // Route::get('/{id}', [ProductController::class, 'show'])->name('show');
-    // Route::post('/', [ProductController::class, 'store'])->name('store');
+
+    // Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+    // Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+    // Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+    // Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+    // Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    // Route::put('/products/{product}', [ProductController::class, 'edit'])->name('products.edit');
+    // Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+
     Route::resource('products', ProductController::class);
 });
 

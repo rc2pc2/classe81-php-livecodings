@@ -26,7 +26,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create'); //
+        $defaultProduct = new Product();
+        // $defaultProduct->weight = '500g';
+        return view('admin.products.create', ['product' => $defaultProduct ]); //
     }
 
 
@@ -40,7 +42,24 @@ class ProductController extends Controller
     {
         $data = $request->all();
 
-        // dd($data);
+        $request->validate([
+            // 'title', 'type', 'cooking_time', 'weight', 'description', 'image_specific', 'image_package', 'image_raw'
+            // ? chiave vuole il name di ogni attributo da controllare
+            // § valore vuole l'insieme dei tipi di validazione da verificare su quella chiave
+            'title' => 'required|min:2|max:100|unique:products,title|',
+            'type' => 'required|string|min:2|max:50',
+            'cooking_time' => 'string|nullable|max:50',
+            'weight' => 'required|string|min:2|max:20',
+            'description' => 'required|string|min:10',
+            'image_specific' => 'required|url|min:2',
+            'image_package' => 'required|url|min:2',
+            'image_raw' => 'required|url|min:2',
+        ],
+        [
+            'title.required' => 'Ao er titolo è obbligatorio, nun se ne esce',
+            'weight.min' => 'Ma ce li voi mette du caratteri ner peso?'
+
+        ]);
 
         // ? In nome del buon Marco: a manina!
         // $newProduct = new Product();
@@ -61,7 +80,7 @@ class ProductController extends Controller
         $newProduct->save();
 
 
-        return redirect()->route('admin.products.show', $newProduct->id);
+        return redirect()->route('admin.products.show', $newProduct->id)->with('message', "$newProduct->title has been created")->with('alert-type', 'info');;
     }
 
     /**
@@ -108,20 +127,41 @@ class ProductController extends Controller
         // $product->image_raw = $data['image_raw'];
         // $product->save();
 
+        $request->validate([
+            // 'title', 'type', 'cooking_time', 'weight', 'description', 'image_specific', 'image_package', 'image_raw'
+            // ? chiave vuole il name di ogni attributo da controllare
+            // § valore vuole l'insieme dei tipi di validazione da verificare su quella chiave
+            'title' => 'required|min:2|max:100',
+            'type' => 'required|string|min:2|max:50',
+            'cooking_time' => 'string|nullable|max:50',
+            'weight' => 'required|string|min:2|max:20',
+            'description' => 'required|string|min:10',
+            'image_specific' => 'required|url|min:2',
+            'image_package' => 'required|url|min:2',
+            'image_raw' => 'required|url|min:2',
+        ],
+        [
+            'title.required' => 'Ao er titolo è obbligatorio, nun se ne esce',
+            'weight.min' => 'Ma ce li voi mette du caratteri ner peso?'
+        ]);
+
+
         $product->update($data);
 
-        return redirect()->route('admin.products.show', $product->id);
+        return redirect()->route('admin.products.show', $product->id)->with('message', "$product->title has been modified successfully")->with('alert-type', 'success');
 
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Product $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        // $product = Product::findOrFail($id);
+        $product->delete();
+        return redirect()->route('admin.products.index')->with('message', "$product->title has been deleted")->with('alert-type', 'danger');
     }
 }

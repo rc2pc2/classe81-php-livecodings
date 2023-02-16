@@ -18,5 +18,7 @@
         @yield('main-content')
     </main>
     {{-- se voglio ci metto un footer --}}
+
+    @yield('scripts')
 </body>
 </html>
