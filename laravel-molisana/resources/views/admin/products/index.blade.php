@@ -9,9 +9,9 @@
                 {{-- @dump(Route::currentRouteName()) --}}
 
                 @if (session('message'))
-                <div class="alert alert-{{ session('alert-type') }}">
-                    {{ session('message')  }}
-                </div>
+                    <div class="alert alert-{{ session('alert-type') }}">
+                        {{ session('message')  }}
+                    </div>
                 @endif
 
                 <div class="col-12 d-flex ">
