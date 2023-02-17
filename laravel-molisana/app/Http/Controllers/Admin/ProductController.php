@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ProductController extends Controller
 {
@@ -40,10 +41,8 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-
-        $request->validate([
-            // 'title', 'type', 'cooking_time', 'weight', 'description', 'image_specific', 'image_package', 'image_raw'
+        $data = $request->validate([
+            // 'title', 'type', 'cooking_time', 'weight', 'description', 'image_specific', 'image_package', 'image_ra   w'
             // ? chiave vuole il name di ogni attributo da controllare
             // § valore vuole l'insieme dei tipi di validazione da verificare su quella chiave
             'title' => 'required|min:2|max:100|unique:products,title|',
@@ -58,7 +57,6 @@ class ProductController extends Controller
         [
             'title.required' => 'Ao er titolo è obbligatorio, nun se ne esce',
             'weight.min' => 'Ma ce li voi mette du caratteri ner peso?'
-
         ]);
 
         // ? In nome del buon Marco: a manina!
@@ -72,7 +70,6 @@ class ProductController extends Controller
         // $newProduct->image_package = $data['image_package'];
         // $newProduct->image_raw = $data['image_raw'];
         // $newProduct->save();
-
 
         // § Usando i campi fillable
         $newProduct = new Product();
@@ -114,7 +111,6 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->all();
         $product = Product::findOrFail($id); // il vecchio dato
 
         // $product->title = $data['title'];
@@ -127,11 +123,11 @@ class ProductController extends Controller
         // $product->image_raw = $data['image_raw'];
         // $product->save();
 
-        $request->validate([
+        $data = $request->validate([
             // 'title', 'type', 'cooking_time', 'weight', 'description', 'image_specific', 'image_package', 'image_raw'
             // ? chiave vuole il name di ogni attributo da controllare
             // § valore vuole l'insieme dei tipi di validazione da verificare su quella chiave
-            'title' => 'required|min:2|max:100',
+            'title' => ['required', 'min:2', 'max:100', Rule::unique('products')->ignore($id)],
             'type' => 'required|string|min:2|max:50',
             'cooking_time' => 'string|nullable|max:50',
             'weight' => 'required|string|min:2|max:12',
@@ -144,7 +140,6 @@ class ProductController extends Controller
             'title.required' => 'Ao er titolo è obbligatorio, nun se ne esce',
             'weight.min' => 'Ma ce li voi mette du caratteri ner peso?'
         ]);
-
 
         $product->update($data);
 
