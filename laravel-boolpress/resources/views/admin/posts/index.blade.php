@@ -1,8 +1,21 @@
 @extends('layouts.admin')
 
+@section('head')
+    @vite(['resources/js/deleteHandler.js'])
+@endsection
+
 @section('content')
-<div class="container">
-    <table class="table table-striped table-borderless table-hover mt-5">
+<div class="container  mt-5">
+
+    {{-- se ho un messaggio
+        mostralo --}}
+    @if (session('message'))
+        <div class="alert alert-{{ session('message_class') }} mb-3">
+            {{ session('message') }}
+        </div>
+    @endif
+
+    <table class="table table-striped table-borderless table-hover">
         <thead class="table-dark">
             <tr>
                 <th scope="col">#id</th>
@@ -24,23 +37,30 @@
                 <td>{{ $post->author }}</td>
                 <td>{{ $post->post_date }}</td>
                 <td>
-                    <a href="{{ route('admin.posts.show', $post->id) }}" class="btn btn-sm btn-primary">
+                    <a href="{{ route('admin.posts.show', $post->slug) }}" class="btn btn-sm btn-primary">
                         Show
                     </a>
 
-                    <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-sm btn-success">
+                    <a href="{{ route('admin.posts.edit', $post->slug) }}" class="btn btn-sm btn-success">
                         Edit
                     </a>
 
-                    <a href="" class="btn btn-sm btn-danger">
-                        Delete
-                        {{-- TODO FARE UN FORM --}}
-                    </a>
+                    <form action="{{ route('admin.posts.destroy', $post->slug) }}" method="POST" class="d-inline-block form-deleter" data-element-name='"{{ $post->title }}"'>
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            Delete
+                        </button>
+                    </form>
+
                 </td>
                 {{-- per ogni post --}}
             </tr>
             @endforeach
         </tbody>
     </table>
+
+    {{ $posts->links() }}
 </div>
 @endsection

@@ -25,7 +25,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::orderBy('post_date', 'DESC')->paginate(10);
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -66,7 +66,12 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('admin.posts.show', compact('post'));
+
+        $previousPost = Post::where('post_date', '>', $post->post_date)->orderBy('post_date')->first();
+
+        $nextPost = Post::where('post_date', '<', $post->post_date)->orderBy('post_date','DESC')->first();
+
+        return view('admin.posts.show', compact('post', 'nextPost', 'previousPost'));
     }
 
     /**
@@ -102,11 +107,12 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Post $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect()->route('admin.posts.index')->with('message', "The post \"$post->title\" has been removed correctly")->with('message_class', 'danger');
     }
 }

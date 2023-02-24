@@ -12,4 +12,14 @@ class Post extends Model
     protected $fillable = [
         'author', 'slug', 'title', 'post_date', 'content'
     ];
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }
