@@ -16,6 +16,16 @@
             <h2 class="card-title fw-bold p-3">
                 {{ $post->title }}
             </h2>
+
+            <div class="card-image mb-4">
+                @if ( str_starts_with($post->image, 'http'))
+                    <img src="{{ $post->image }}"
+                @else
+                    <img src="{{ asset('storage/' . $post->image ) }}"
+                @endif
+                    alt="{{ $post->title }} image" class="img-fluid">
+            </div>
+
             <p class="card-text mb-4">
                 {{ $post->content }}
             </p>
@@ -25,7 +35,6 @@
                     <a href="{{ route('admin.posts.show', $previousPost->slug) }}" class="btn btn-outline-primary me-auto">
                 @else
                     <a href="" class="btn btn-outline-primary disabled me-auto" >
-
                 @endif
                     Previous
                 </a>

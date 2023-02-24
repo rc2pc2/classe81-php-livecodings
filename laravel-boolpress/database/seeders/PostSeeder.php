@@ -7,6 +7,7 @@ use Faker\Generator as Faker;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class PostSeeder extends Seeder
 {
@@ -25,6 +26,7 @@ class PostSeeder extends Seeder
             $newPost->author = $faker->name();
             $newPost->content = $faker->realTextBetween(1600, 3000);
             $newPost->post_date = $faker->dateTimeThisYear();
+            $newPost->image = $faker->unique()->imageUrl();
             $newPost->save();
         }
     }

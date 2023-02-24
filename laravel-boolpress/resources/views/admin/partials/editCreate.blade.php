@@ -1,4 +1,4 @@
-<form action="{{ route($routeName, $post) }}" method="POST" class="p-5">
+<form action="{{ route($routeName, $post) }}" method="POST" class="p-5" enctype="multipart/form-data" >
     @csrf
     @method($method)
 
@@ -39,6 +39,11 @@
     <div class="mb-3">
         <label for="post_content" class="form-label">Post content</label>
         <textarea class="form-control" id="post_content" rows="10" name="content">{{ old('content', $post->content) }}</textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="post_content" class="form-label">Post image</label>
+        <input type="file" class="form-control" id="post_image" name="image" value="{{ old('image', $post->image) }}">
     </div>
 
 

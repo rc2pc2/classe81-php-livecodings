@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -15,7 +16,8 @@ class PostController extends Controller
     protected $validationRules = [
         'title' => ['required', 'unique:posts' ],
         'post_date' => 'required',
-        'content' => 'required'
+        'content' => 'required',
+        'image' => 'required|image|max:300'
     ];
 
     /**
@@ -47,10 +49,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-
         $data = $request->validate($this->validationRules);
         $data['author'] = Auth::user()->name;
         $data['slug'] = Str::slug($data['title']);
+        $data['image'] =  Storage::put('imgs/', $data['image']); // in imgs/wmdjkoqwndioqwndqw.jpg
+
         $newPost = new Post();
         $newPost->fill($data);
         $newPost->save();
@@ -66,7 +69,6 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-
         $previousPost = Post::where('post_date', '>', $post->post_date)->orderBy('post_date')->first();
 
         $nextPost = Post::where('post_date', '<', $post->post_date)->orderBy('post_date','DESC')->first();
@@ -98,8 +100,19 @@ class PostController extends Controller
         $data = $request->validate([
             'title' => ['required', Rule::unique('posts')->ignore($post->id) ],
             'post_date' => 'required',
-            'content' => 'required'
+            'content' => 'required',
+            'image' => 'image|required|max:300'
         ]);
+
+        if ($request->hasFile('image')){
+
+            if (!$post->isImageAUrl()){
+                Storage::delete($post->image);
+            }
+
+            $data['image'] =  Storage::put('imgs/', $data['image']);
+        }
+
         $post->update($data);
         return redirect()->route('admin.posts.show', compact('post'));
     }
@@ -112,7 +125,12 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        if (!$post->isImageAUrl()) {
+            Storage::delete($post->image);
+        }
+
         $post->delete();
+
         return redirect()->route('admin.posts.index')->with('message', "The post \"$post->title\" has been removed correctly")->with('message_class', 'danger');
     }
 }
