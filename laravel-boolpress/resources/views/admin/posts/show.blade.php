@@ -9,7 +9,7 @@
 <div class="container">
     <div class="card text-center">
         <div class="card-header fw-bold">
-            {{ $post->author }} --- {{ $post->category->name }}
+            {{ $post->author }} --- <span style="color: {{ $post->category->color }}">{{ $post->category->name }}</span>
         </div>
         <div class="card-body p-3 m-3">
 

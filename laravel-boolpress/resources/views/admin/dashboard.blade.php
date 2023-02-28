@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container">
@@ -7,20 +7,38 @@
     </h2>
     <div class="row justify-content-center">
         <div class="col">
-            <div class="card">
-                <div class="card-header">{{ __('User Dashboard') }}</div>
-
+            <div class="card p-3">
+                {{-- @dump( Auth::user()) --}}
+                <div class="card-header mb-3">
+                    <p>
+                        Status: {{ Auth::user()->userDetail->status }}
+                    </p>
+                </div>
+                <div class="card-title">
+                    <h4>
+                        {{ Auth::user()->name }}
+                    </h4>
+                </div>
+                <div class="card-image">
+                    <img src="{{ Auth::user()->userDetail->profile_image }}" alt="" class="img-thumbnail w-25 d-inline-block">
+                </div>
                 <div class="card-body">
-                    @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                    @endif
+                    <h6>
+                        email address : {{ Auth::user()->email }}
+                    </h6>
+                </div>
+                <div class="card-footer">
+                    <h6>
+                        Bio:
+                    </h6>
+                    <p class=" fst-italic">
+                        {{ Auth::user()->userDetail->bio }}
+                    </p>
 
-                    {{ __('You are logged in!') }}
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 @endsection
