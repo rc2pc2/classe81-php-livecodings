@@ -23,6 +23,22 @@
     </h5>
 
 
+
+    <div class="mb-3">
+        <label for="post_category" class="form-label">
+            Post Title
+        </label>
+
+        <select  class="form-control" id="post_category" name="category_id" >
+            @foreach ($categories as $category)
+                <option value="{{ $category->id }}"
+                    {{ old('category_id', $post->category_id) ==  $category->id ? 'selected' : '' }}> {{ $category->name }}
+                </option>
+            @endforeach
+        </select>
+
+    </div>
+
     <div class="mb-3">
         <label for="post_title" class="form-label">
             Post Title
@@ -49,7 +65,7 @@
 
     <div class="mb-3">
         <button type="submit" class="btn btn-primary">
-            Create new post
+            {{ $routeName == 'admin.posts.update' ? 'Update post' : 'Create new post'  }}
         </button>
     </div>
 </form>

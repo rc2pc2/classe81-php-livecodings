@@ -10,8 +10,13 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable = [
-        'author', 'slug', 'title', 'post_date', 'content', 'image'
+        'author', 'slug', 'title', 'post_date', 'content', 'image', 'category_id'
     ];
+
+    // guarda che tu dipendi da qualcuno, ovvero da una singola categoria
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
 
     /**
      * Get the route key for the model.
