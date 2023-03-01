@@ -31,4 +31,8 @@ class Post extends Model
     public function isImageAUrl(){
         return filter_var($this->image, FILTER_VALIDATE_URL);
     }
+
+    public function tags(){
+        return $this->belongsToMany(Tag::class);
+    }
 }
