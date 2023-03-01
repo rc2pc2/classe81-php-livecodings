@@ -22,6 +22,7 @@
                 <th scope="col">Title</th>
                 <th scope="col">Author</th>
                 <th scope="col">Post date</th>
+                <th scope="col">Tags</th>
                 <th scope="col">Category</th>
                 <th scope="col">
                     <a href="{{ route('admin.posts.create') }}" class="btn btn-sm btn-primary">
@@ -37,6 +38,13 @@
                 <td>{{ $post->title }}</td>
                 <td>{{ $post->author }}</td>
                 <td>{{ $post->post_date }}</td>
+                <td>
+                    @forelse ($post->tags as $tag)
+                        {{ $tag->name }},
+                    @empty
+                        No tags
+                    @endforelse
+                </td>
                 <td>{{ $post->category->name ?? 'No category' }}</td>
 
                 <td>

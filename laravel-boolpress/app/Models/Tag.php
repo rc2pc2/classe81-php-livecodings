@@ -9,10 +9,21 @@ class Tag extends Model
 {
     use HasFactory;
 
-    // TODO FILLABLES
+
+    protected $fillable = ['name', 'accent_color', 'bg_color', 'slug' ];
 
     public function posts(){
         return $this->belongsToMany(Post::class);
+    }
+
+     /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 
 }

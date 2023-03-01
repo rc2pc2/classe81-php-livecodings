@@ -41,10 +41,29 @@
                 </option>
             @endforeach
         </select>
+    </div>
 
+    <div class="mb-3 tags d-flex align-items-center justify-content-between">
+
+
+        @foreach ($tags as $tag)
+                <div class="single-tag d-flex align-items-center">
+                    <input type="checkbox" class="form-check-input" name="tags[]" value="{{ $tag->id }}"
+
+                    @if ($errors->any())
+                        @checked(in_array($tag->id, old('tags',[])))
+                    @else
+                        @checked($post->tags->contains($tag->id))
+                    @endif
+                    >
+
+                    <label class="form-check-label ms-2">{{ $tag->name }}</label>
+                </div>
+        @endforeach
     </div>
 
     <div class="mb-3">
+
         <label for="post_title" class="form-label">
             Post Title
         </label>

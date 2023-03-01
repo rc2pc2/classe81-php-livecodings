@@ -13,11 +13,20 @@
         </div>
         <div class="card-body p-3 m-3">
 
-            <h2 class="card-title fw-bold p-3">
+
+            <h2 class="card-title fw-bold p-3 mb-3">
                 {{ $post->title }}
             </h2>
 
-            <div class="card-image mb-4">
+            <div class="tags mb-5">
+                @foreach ($post->tags as $tag)
+                   <span class="p-2 badge rounded-pill"
+                   style="background-color: {{ $tag->bg_color }}; color: {{ $tag->accent_color }}"> #{{ $tag->name }}</span>
+                @endforeach
+            </div>
+
+
+            <div class="card-image mb-5">
                 @if ( $post->isImageAUrl())
                     <img src="{{ $post->image }}"
                 @else

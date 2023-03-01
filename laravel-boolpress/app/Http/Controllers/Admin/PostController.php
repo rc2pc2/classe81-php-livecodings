@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -19,7 +20,8 @@ class PostController extends Controller
         'post_date' => 'required',
         'content' => 'required',
         'image' => 'required|image|max:300',
-        'category_id' => 'required|exists:categories,id'
+        'category_id' => 'required|exists:categories,id',
+        'tags' => 'array|exists:tags,id'
     ];
 
     /**
@@ -40,7 +42,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create', ["post" => new Post(), 'categories' => Category::all() ]);
+        return view('admin.posts.create', ["post" => new Post(), 'categories' => Category::all(), 'tags' => Tag::all() ]);
     }
 
     /**
@@ -51,6 +53,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
         $data = $request->validate($this->validationRules);
         // dd($data);
         $data['author'] = Auth::user()->name;
@@ -60,6 +63,7 @@ class PostController extends Controller
         $newPost = new Post();
         $newPost->fill($data);
         $newPost->save();
+        $newPost->tags()->sync($data['tags']);
 
         return redirect()->route('admin.posts.index')->with('message', "Post $newPost->title has been created succesfully");
     }
@@ -87,7 +91,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', [ 'post' => $post , 'categories' => Category::all() ] );
+        return view('admin.posts.edit', [ 'post' => $post , 'categories' => Category::all(), 'tags' => Tag::all() ] );
     }
 
     /**
@@ -105,7 +109,8 @@ class PostController extends Controller
             'post_date' => 'required',
             'content' => 'required',
             'image' => 'image|required|max:300',
-            'category_id' => 'required|exists:categories,id'
+            'category_id' => 'required|exists:categories,id',
+            'tags' => 'array|exists:tags,id'
         ]);
 
         if ($request->hasFile('image')){
@@ -118,6 +123,8 @@ class PostController extends Controller
         }
 
         $post->update($data);
+        $post->tags()->sync($data['tags']);
+
         return redirect()->route('admin.posts.show', compact('post'));
     }
 
@@ -133,6 +140,7 @@ class PostController extends Controller
             Storage::delete($post->image);
         }
 
+        $post->tags()->sync([]);
         $post->delete();
 
         return redirect()->route('admin.posts.index')->with('message', "The post \"$post->title\" has been removed correctly")->with('message_class', 'danger');
