@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController as DashboardController;
 use App\Http\Controllers\Admin\PostController as AdminPostController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Guest\PostController as GuestPostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,8 @@ Route::get('/', [GuestPostController::class, 'index'])->name('guests.index');
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group( function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('/posts', AdminPostController::class);
+    Route::delete('/posts/{post}/clear-category',  [AdminPostController::class, 'clearCategory'])->name('posts.clearCategory');
+    Route::resource('/categories', AdminCategoryController::class);
 
     // altre rotte che voglio essere protette da login e che siano in admin
 });

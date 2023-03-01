@@ -137,4 +137,11 @@ class PostController extends Controller
 
         return redirect()->route('admin.posts.index')->with('message', "The post \"$post->title\" has been removed correctly")->with('message_class', 'danger');
     }
+
+    public function clearCategory(Post $post){
+        $category = $post->category;
+        $post->category_id = null;
+        $post->update();
+        return redirect()->route('admin.categories.show', compact('category'));
+    }
 }

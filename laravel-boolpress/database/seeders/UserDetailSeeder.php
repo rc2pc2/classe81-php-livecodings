@@ -23,7 +23,7 @@ class UserDetailSeeder extends Seeder
         foreach ($users as $user) {
             $newUserDetail  = new UserDetail();
             $newUserDetail->user_id = $user->id;
-            $newUserDetail->bio = $faker->realTextBetween(300, 500);
+            $newUserDetail->bio = $faker->realTextBetween(200, 254);
             $newUserDetail->status = $faker->sentence(1, false);
             $newUserDetail->profile_image = $faker->imageUrl();
             $newUserDetail->save();

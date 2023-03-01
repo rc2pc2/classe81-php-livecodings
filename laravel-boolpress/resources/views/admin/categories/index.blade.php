@@ -19,36 +19,33 @@
         <thead class="table-dark">
             <tr>
                 <th scope="col">#id</th>
-                <th scope="col">Title</th>
-                <th scope="col">Author</th>
-                <th scope="col">Post date</th>
-                <th scope="col">Category</th>
+                <th scope="col">Name</th>
+                <th scope="col">Color</th>
+                <th scope="col"># of posts</th>
                 <th scope="col">
-                    <a href="{{ route('admin.posts.create') }}" class="btn btn-sm btn-primary">
+                    <a href="{{ route('admin.categories.create') }}" class="btn btn-sm btn-primary">
                         Create new post
                     </a>
                 </th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($posts as $post)
+            @foreach ($categories as $category)
             <tr>
-                <td>{{ $post->id }}</td>
-                <td>{{ $post->title }}</td>
-                <td>{{ $post->author }}</td>
-                <td>{{ $post->post_date }}</td>
-                <td>{{ $post->category->name ?? 'No category' }}</td>
-
+                <td>{{ $category->id }}</td>
+                <td>{{ $category->name }}</td>
+                <td style="background-color: {{ $category->color }}">{{ $category->color }}</td>
+                <td>{{ count($category->posts) }}</td>
                 <td>
-                    <a href="{{ route('admin.posts.show', $post->slug) }}" class="btn btn-sm btn-primary">
+                    <a href="{{ route('admin.categories.show', $category->slug) }}" class="btn btn-sm btn-primary">
                         Show
                     </a>
 
-                    <a href="{{ route('admin.posts.edit', $post->slug) }}" class="btn btn-sm btn-success">
+                    <a href="{{ route('admin.categories.edit', $category->slug) }}" class="btn btn-sm btn-success">
                         Edit
                     </a>
 
-                    <form action="{{ route('admin.posts.destroy', $post->slug) }}" method="POST" class="d-inline-block form-deleter" data-element-name='"{{ $post->title }}"'>
+                    <form action="{{ route('admin.categories.destroy', $category->slug) }}" method="POST" class="d-inline-block form-deleter" data-element-name='"{{ $category->name }}"'>
                         @csrf
                         @method('DELETE')
 
@@ -64,6 +61,6 @@
         </tbody>
     </table>
 
-    {{ $posts->links() }}
+    {{ $categories->links() }}
 </div>
 @endsection
