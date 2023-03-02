@@ -146,10 +146,29 @@ class PostController extends Controller
         return redirect()->route('admin.posts.index')->with('message', "The post \"$post->title\" has been removed correctly")->with('message_class', 'danger');
     }
 
+
+    /**
+     * Clears the linked category of this post.
+     *
+     * @param Post $post
+     * @return void
+     */
     public function clearCategory(Post $post){
         $category = $post->category;
         $post->category_id = null;
         $post->update();
         return redirect()->route('admin.categories.show', compact('category'));
+    }
+
+
+    /**
+     * Clears every tag lìnked with this post.
+     *
+     * @param Post $post
+     * @return void
+     */
+    public function clearTags(Post $post){
+        $post->sync([]);
+        return redirect()->route('admin.tags.index');
     }
 }
