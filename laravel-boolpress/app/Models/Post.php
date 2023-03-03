@@ -10,7 +10,7 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable = [
-        'author', 'slug', 'title', 'post_date', 'content', 'image', 'category_id'
+        'user_id', 'slug', 'title', 'post_date', 'content', 'image', 'category_id'
     ];
 
     // guarda che tu dipendi da qualcuno, ovvero da una singola categoria
@@ -34,5 +34,9 @@ class Post extends Model
 
     public function tags(){
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

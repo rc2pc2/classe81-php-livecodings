@@ -31,7 +31,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('post_date', 'DESC')->paginate(10);
+        $posts = Post::where('user_id', Auth::user()->id)->orderBy('post_date', 'DESC')->paginate(10);
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -56,7 +56,7 @@ class PostController extends Controller
 
         $data = $request->validate($this->validationRules);
         // dd($data);
-        $data['author'] = Auth::user()->name;
+        $data['user_id'] = Auth::user()->id;
         $data['slug'] = Str::slug($data['title']);
         $data['image'] =  Storage::put('imgs/', $data['image']); // in imgs/wmdjkoqwndioqwndqw.jpg
 

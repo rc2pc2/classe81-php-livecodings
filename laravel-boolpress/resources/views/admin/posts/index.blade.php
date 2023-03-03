@@ -36,7 +36,7 @@
             <tr>
                 <td>{{ $post->id }}</td>
                 <td>{{ $post->title }}</td>
-                <td>{{ $post->author }}</td>
+                <td>{{ $post->user->name }}</td>
                 <td>{{ $post->post_date }}</td>
                 <td>
                     @forelse ($post->tags as $tag)
