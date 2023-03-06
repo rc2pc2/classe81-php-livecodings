@@ -25,7 +25,7 @@ export default {
         getPost(){
             axios.get(this.urlAddress + `/api/posts/${this.$route.params.slug}`, {
                 params: {
-
+                    'api_token' : '7eb37wSfeU37mxZHL0H5QiAEtvNVF9dD9bRNbIqbbMJmADJNb3FobaKBBxLfCSVL1lyN4IX8rker9npo39JnablPzt',
                 }
             })
             .then((response) => {
