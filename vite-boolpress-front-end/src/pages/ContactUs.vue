@@ -1,7 +1,7 @@
 <template lang="">
     <div>
         <h2 class="mb-5">
-            About us
+            Contact us
         </h2>
         <div class="container">
             <div class="row">
@@ -17,7 +17,7 @@ import ContactForm from '../components/ContactForm.vue';
 
 
 export default {
-    name: 'AboutUs',
+    name: 'ContactUs',
     components: {
         ContactForm
     }

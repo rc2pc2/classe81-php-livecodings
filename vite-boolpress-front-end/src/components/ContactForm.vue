@@ -1,6 +1,6 @@
 <template >
     <section class="contact-form">
-        <div class="form-input">
+        <div class="form-input p-3">
 
 
             <div class="alert alert-success mb-3" v-if="success">
