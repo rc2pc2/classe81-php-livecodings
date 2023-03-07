@@ -33,6 +33,6 @@ class LeadController extends Controller
         // passsiamo la lead ad un nuovo NewContact()
         // mandiamo la mail
 
-        dd($data);
+        return redirect()->route('guest.contacts.create')->with('message', "Your message has been sent succesfully");
     }
 }
