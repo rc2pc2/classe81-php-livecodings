@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\PostController as AdminPostController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\TagController as AdminTagController;
 use App\Http\Controllers\Guest\PostController as GuestPostController;
+use App\Http\Controllers\LeadController as LeadController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +21,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [GuestPostController::class, 'index'])->name('guests.index');
-
+Route::get('/contact-us', [LeadController::class, 'create'])->name('guest.contacts.create');
+Route::post('/contact-us', [LeadController::class, 'store'])->name('guest.contacts.store');
 
 
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group( function(){
