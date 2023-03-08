@@ -13,7 +13,18 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    @if ($user->image)
+        <div class="mb-3">
+            <h5 class="text-secondary   ">
+                Profile image:
+            </h5>
+            <div class="w-25">
+                <img src="{{ asset('/storage/' . $user->image) }}" alt="" class="img-thumbnail">
+            </div>
+        </div>
+    @endif
+
+    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
 
@@ -58,6 +69,18 @@
             </div>
             @endif
         </div>
+
+        <div class="mb-2">
+            <label for="image">{{__('Profile image')}}</label>
+            <input class="form-control" type="file" name="image" id="image" autocomplete="image" value="{{old('image', $user->image)}}" >
+
+            @error('image')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->get('image')}}</strong>
+                </span>
+            @enderror
+        </div>
+
 
         <div class="d-flex align-items-center gap-4">
             <button class="btn btn-primary" type="submit">{{ __('Save') }}</button>
