@@ -140,7 +140,7 @@ class PostController extends Controller
      * @param  Post $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(Post $post) // § se arriva uno slug => io prendo automaticamente il modello, lo popolo prendendo dal db la risorsa con quello slug che lo definisce e lo inserisco dentro a questa funzione
     {
         if (!$post->isImageAUrl()) {
             Storage::delete($post->image);
